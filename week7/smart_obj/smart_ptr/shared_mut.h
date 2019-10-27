@@ -15,6 +15,7 @@ private:
     void increase();
 public:
     shared_mut();
+	shared_mut(const shared_mut& mut);
     explicit shared_mut(Object* obj);
     ~shared_mut();
 

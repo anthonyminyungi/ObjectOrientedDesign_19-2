@@ -11,4 +11,20 @@ int main(){
     char * copy = "is no no";
     char name = 'a';
     cout << &name+i << endl;  
+
+    std::cout << (void *)target << '\n';
+ 
+    std::cout << &b << '\n';
+ 
+    std::cout << &a << '\n';
+
+    std::cout << &i << '\n';
+
+    std::cout << (void*) &c << '\n';
+
+    std::cout << (void *) &copy << '\n';
+
+    std::cout << (void *) &name << '\n';
+
+    std::cout << &name + i << '\n';
 }

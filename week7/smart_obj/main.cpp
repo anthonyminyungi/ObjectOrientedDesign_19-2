@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "smart_ptr/object.h"
 #include "smart_ptr/shared_mut.h"
@@ -10,7 +11,9 @@ int main() {
     {
         shared_mut p(new Object(3));
         shared_mut q(new Object(5));
-        shared_mut r = p + q;
+		shared_mut r;
+		r = p + q;
+		
 
         std::cout << "Hello, Unique_immut! " <<  r->get() << std::endl;
     }

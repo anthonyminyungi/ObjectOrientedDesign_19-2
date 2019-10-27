@@ -1,9 +1,19 @@
+//
+// Created by 김혁진 on 14/10/2019.
+//
+
 #include "shared_mut.h"
 
 namespace ptr {
 	
 	shared_mut::shared_mut() {
     _mgr = new mgr();
+	}
+
+	shared_mut::shared_mut(const shared_mut& mut)
+	{
+		this->_mgr = mut._mgr;
+		this->increase();
 	}
 
 shared_mut::shared_mut(Object* _obj) {
@@ -25,13 +35,17 @@ Object* shared_mut::get() const
 void shared_mut::increase()
 {
 	_mgr->count += 1;
+
 }
 void shared_mut::release()
 {
-	_mgr->count -= 1;
-	if (_mgr->count == 0) {
-		_mgr->~mgr();
+	this->_mgr->count -= 1;
+	if (this->_mgr->count == 0) {
+		this->_mgr->~mgr();
 	}
+	this->_mgr = new mgr();
+	
+	
 	
 }
 int shared_mut::count()
