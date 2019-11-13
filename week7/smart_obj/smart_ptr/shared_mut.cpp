@@ -28,8 +28,11 @@ Object* shared_mut::get() const
 	if (_mgr == nullptr) {
 		return nullptr;
 	}
-	else {
+	else if(this->_mgr->ptr != nullptr) {
 		return _mgr->ptr;
+	}
+	else{
+	    return nullptr;
 	}
 }
 void shared_mut::increase()
@@ -40,7 +43,7 @@ void shared_mut::increase()
 void shared_mut::release()
 {
 	this->_mgr->count -= 1;
-	if (this->_mgr->count == 0) {
+	if (this->_mgr->count <= 0) {
 		this->_mgr->~mgr();
 	}
 	this->_mgr = new mgr();
@@ -50,6 +53,7 @@ void shared_mut::release()
 }
 int shared_mut::count()
 {
+    	if(_mgr == nullptr) return 0;
 	return _mgr->count;
 }
 shared_mut shared_mut::operator+(const shared_mut& shared)
@@ -78,10 +82,12 @@ Object* shared_mut::operator->()
 }
 shared_mut& shared_mut::operator=(const shared_mut& r)
 {
-	this->release();
+    if(this != &r){
+	this->_mgr->~mgr();
 	this->_mgr = r._mgr;
 	this->increase();
 
+    }
 	return *this;
 }
 } // end of namespace ptr
